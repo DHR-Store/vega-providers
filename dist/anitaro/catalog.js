@@ -1,1 +1,1 @@
-
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.catalog=void 0,exports.catalog=[{title:"Trending",filter:"home"},{title:"Series",filter:"anime/subbed-anime"}];
