@@ -776,7 +776,7 @@
   {
     "display_name": "Sorastream",
     "value": "sorastream",
-    "version": "1.0",
+    "version": "1.1",
     "icon": "https://media.licdn.com/dms/image/v2/D4D0BAQEeL-KEWEqpiA/company-logo_200_200/company-logo_200_200/0/1719257531579/superstreamai_logo?e=2147483647&v=beta&t=zQms4EL4GIr8ALCEgshu4AGWr-B-O_jGhBB3n23hGQE",
     "type": "global",
     "category": "movie/tvshow",
@@ -784,6 +784,7 @@
   }
   
 ]
+
 
 
 
