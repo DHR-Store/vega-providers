@@ -790,9 +790,23 @@
     "type": "india",
     "category": "cartoon",
     "disabled": false
+  },
+  {
+    "display_name": "Streamflix2",
+    "value": "streamflix2",
+    "version": "1.0",
+    "icon": "https://play-lh.googleusercontent.com/7geBQBtW_yN70BU81Oi2SoZvYsj5VoYrI4FmUNdqWQlchtExJb7XE_1BQysGzgJ6mBU",
+    "type": "global",
+    "category": "movie/tvshow",
+    "disabled": false
   }
+
+
+  
+  
   
 ]
+
 
 
 
