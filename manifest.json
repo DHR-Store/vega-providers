@@ -781,9 +781,19 @@
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "xoncartoon",
+    "value": "xoncartoon",
+    "version": "1.0",
+    "icon": "https://play-lh.googleusercontent.com/zVq_wAus2snoO-ggyI6IomlsCzfybAozQOGYpBrv71r1--rOYOYWsr_N7DWwVp9t7ro=s248-rw",
+    "type": "india",
+    "category": "cartoon",
+    "disabled": false
   }
   
 ]
+
 
 
 
