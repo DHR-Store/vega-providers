@@ -29,8 +29,8 @@
   {
     "display_name": "MultiMovies",
     "value": "multi",
-    "version": "1.4",
-    "icon": "https://multimovies.golf/wp-content/uploads/2023/04/multimovies.jpg",
+    "version": "1.5",
+    "icon": "https://raw.githubusercontent.com/LikDev-256/likdev256-tamil-providers/master/MultiMoviesProvider/icon.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
@@ -806,6 +806,7 @@
   
   
 ]
+
 
 
 
