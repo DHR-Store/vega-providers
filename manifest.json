@@ -114,7 +114,7 @@
     "icon": "",
     "type": "global",
     "category": "movie/tvshow",
-    "disabled": true
+    "disabled": false
   },
   {
     "display_name": "Ringz",
@@ -784,6 +784,7 @@
   }
   
 ]
+
 
 
 
