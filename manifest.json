@@ -817,6 +817,15 @@
     "type": "india",
     "category": "anime",
     "disabled": false
+  },
+  {
+    "display_name": "xdmovies",
+    "value": "xdmovies",
+    "version": "1.0",
+    "icon": "https://xdmovies.site/assets/logo1.png",
+    "type": "global",
+    "category": "movie/tvshow",
+    "disabled": false
   }
 
 
@@ -824,6 +833,7 @@
   
   
 ]
+
 
 
 
