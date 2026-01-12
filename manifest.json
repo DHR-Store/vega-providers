@@ -799,6 +799,24 @@
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "animedekho",
+    "value": "animedekho",
+    "version": "1.0",
+    "icon": "https://hindisubanime.co/wp-content/uploads/2024/04/android-chrome-512x512-1-150x150.png",
+    "type": "global",
+    "category": "anime",
+    "disabled": false
+  },
+   {
+    "display_name": "hindisubanime",
+    "value": "hindisubanime",
+    "version": "1.0",
+    "icon": "https://hindisubanime.co/wp-content/uploads/2024/04/android-chrome-512x512-1-150x150.png",
+    "type": "india",
+    "category": "anime",
+    "disabled": false
   }
 
 
@@ -806,6 +824,7 @@
   
   
 ]
+
 
 
 
