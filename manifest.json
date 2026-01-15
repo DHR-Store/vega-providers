@@ -826,6 +826,15 @@
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "khatrimazafull1",
+    "value": "khatrimazafull1",
+    "version": "1.0",
+    "icon": "https://khatrimazafull1.shop/wp-content/uploads/2025/11/cropped-favicon-1-180x180.jpg",
+    "type": "global",
+    "category": "movie/tvshow",
+    "disabled": false
   }
 
 
@@ -833,6 +842,7 @@
   
   
 ]
+
 
 
 
