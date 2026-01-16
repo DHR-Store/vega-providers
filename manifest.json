@@ -92,8 +92,8 @@
   {
     "display_name": "CinemaLuxe",
     "value": "cinemaLuxe",
-    "version": "1.83",
-    "icon": "https://cinemalux.tel/wp-content/uploads/2025/03/cropped-icons8-film-reel-48-192x192.png",
+    "version": "1.84",
+    "icon": "https://cinemalux.nexus/wp-content/uploads/2025/03/cropped-icons8-film-reel-48-180x180.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false 
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
