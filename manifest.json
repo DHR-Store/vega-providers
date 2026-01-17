@@ -353,7 +353,7 @@
    {
     "display_name": "bolly4u",
     "value": "bolly4u",
-    "version": "1.6",
+    "version": "1.7",
     "icon": "https://bolly4u.deals/templates/bolly4u/images/favicon-16x16.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
