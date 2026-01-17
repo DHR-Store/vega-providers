@@ -344,7 +344,7 @@
   {
     "display_name": "Filmyzilla",
     "value": "Filmyzilla",
-    "version": "1.2",
+    "version": "1.3",
     "icon": "https://www.ofilmyzilla.dog/templates/images/fev.png",
     "type": "india",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
