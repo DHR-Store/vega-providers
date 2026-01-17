@@ -488,7 +488,7 @@
   {
     "display_name": "Bollyflix",
     "value": "Bollyflix",
-    "version": "1.3",
+    "version": "1.4",
     "icon": "https://bollyflix.fail/templates/bollyflix/images/favicon.ico",
     "type": "india",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
