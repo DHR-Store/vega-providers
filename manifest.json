@@ -470,7 +470,7 @@
   {
     "display_name": "DesireMovie",
     "value": "DesireMovie",
-    "version": "1.003",
+    "version": "1.004",
     "icon": "https://desiremovies.earth/wp-content/uploads/2023/04/cropped-image_processing20210911-26622-fplmvm-192x192.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -488,7 +488,7 @@
   {
     "display_name": "Bollyflix",
     "value": "Bollyflix",
-    "version": "1.4",
+    "version": "1.4.1",
     "icon": "https://bollyflix.fail/templates/bollyflix/images/favicon.ico",
     "type": "india",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
