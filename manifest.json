@@ -497,7 +497,7 @@
   {
     "display_name": "7starHD",
     "value": "7starHD",
-    "version": "1.1",
+    "version": "1.2",
     "icon": "https://7starhd.info.in/wp-content/uploads/2025/10/7starhd_mm.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
