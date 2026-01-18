@@ -38,7 +38,7 @@
   {
     "display_name": "4khdHub",
     "value": "4khdhub",
-    "version": "1.2",
+    "version": "1.3",
     "icon": "https://4khdhub.fans/apple-touch-icon.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -101,7 +101,7 @@
   {
     "display_name": "FilmyFly",
     "value": "filmyfly",
-    "version": "1.0",
+    "version": "1.1",
     "icon": "/templates/filmyfly/images/TBLFavi.png",
     "type": "india",
     "category": "movie/tvshow",
@@ -146,7 +146,7 @@
   {
     "display_name": "HdHub4u",
     "value": "hdhub4u",
-    "version": "1.3",
+    "version": "1.4",
     "icon": "https://new2.hdhub4u.fo/favicon.ico",
     "type": "global",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
