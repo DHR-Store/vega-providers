@@ -20,7 +20,7 @@
   {
     "display_name": "MoviesDrive",
     "value": "drive",
-    "version": "1.5",
+    "version": "1.6",
     "icon": "https://moviesdrive.pics/apple-touch-icon.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
