@@ -200,7 +200,7 @@
   {
     "display_name": "RidoMovies",
     "value": "ridoMovies",
-    "version": "1.4",
+    "version": "1.5",
     "icon": "https://ridomovies.tv/channels/favicon.png",
     "type": "english",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
