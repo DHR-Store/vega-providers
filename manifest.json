@@ -623,7 +623,7 @@
   {
     "display_name": "Tamilian",
     "value": "tamilian",
-    "version": "1.0",
+    "version": "1.1",
     "icon": "https://tamilian.io/favicon.ico",
     "type": "tamil",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
