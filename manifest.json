@@ -299,7 +299,7 @@
 {
     "display_name": "MovieTP",
     "value": "HDMovie2",
-    "version": "1.4",
+    "version": "1.5",
     "icon": "https://movietp.net/img/movietp.webp",
     "type": "india",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
