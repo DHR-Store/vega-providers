@@ -407,7 +407,7 @@
   {
     "display_name": "ssrmovies",
     "value": "ssrmovies",
-    "version": "1.3",
+    "version": "1.4",
     "icon": "https://ssrmovies.to/ssrmovies-icon-32x32.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
