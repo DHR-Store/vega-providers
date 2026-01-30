@@ -317,7 +317,7 @@
 {
     "display_name": "pikahd",
     "value": "pikahd",
-    "version": "1.2",
+    "version": "1.3",
     "icon": "https://pikahd.eu/wp-content/uploads/2020/07/cropped-plkd-32x32.png",
     "type": "global",
     "category": "tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
