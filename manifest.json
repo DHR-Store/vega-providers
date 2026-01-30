@@ -722,7 +722,7 @@
   {
     "display_name": "Mxplayer",
     "value": "mxplayer",
-    "version": "1.0",
+    "version": "1.1",
     "icon": "https://dfyr469febw8d.cloudfront.net/static/desktop/images/favicon.png",
     "type": "india",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
