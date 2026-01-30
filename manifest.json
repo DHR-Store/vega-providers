@@ -191,7 +191,7 @@
   {
     "display_name": "ShowBox",
     "value": "showbox",
-    "version": "1.3",
+    "version": "1.4",
     "icon": "https://www.showbox.media/favicon.ico",
     "type": "india",
     "category": "movie/tvshow",
@@ -842,6 +842,7 @@
   
   
 ]
+
 
 
 
