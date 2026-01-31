@@ -461,7 +461,7 @@
   {
     "display_name": "mkvhub",
     "value": "mkvhub",
-    "version": "1.02",
+    "version": "1.03",
     "icon": "https://www.mkvhub.email/wp-content/uploads/2018/06/MkvHub-Icon.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -860,6 +860,7 @@
   
   
 ]
+
 
 
 
