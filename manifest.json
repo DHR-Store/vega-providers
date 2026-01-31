@@ -853,6 +853,15 @@
     "type": "vietnam",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "asiancTV",
+    "value": "asiancTV",
+    "version": "1.0",
+    "icon": "https://asianctv.cc//template/images/icon_120x120.png",
+    "type": "global",
+    "category": "drama",
+    "disabled": false
   }
 
 
@@ -860,6 +869,7 @@
   
   
 ]
+
 
 
 
