@@ -101,8 +101,8 @@
   {
     "display_name": "FilmyFly",
     "value": "filmyfly",
-    "version": "1.1",
-    "icon": "/templates/filmyfly/images/TBLFavi.png",
+    "version": "1.2",
+    "icon": "https://image.linkmake.in/images/files/6bde095e62765410f32fd58d50db732e999658.png",
     "type": "india",
     "category": "movie/tvshow",
     "disabled": false
@@ -159,7 +159,7 @@
     "icon": "",
     "type": "english",
     "category": "movie/tvshow",
-    "disabled": false
+    "disabled": true
   },
   {
     "display_name": "VadaPav",
@@ -200,8 +200,8 @@
   {
     "display_name": "RidoMovies",
     "value": "ridoMovies",
-    "version": "1.5",
-    "icon": "https://ridomovies.tv/channels/favicon.png",
+    "version": "1.5.01",
+    "icon": "https://ridomovies.tv/favicon.ico",
     "type": "english",
     "category": "movie/tvshow",
     "disabled": false
@@ -227,8 +227,8 @@
   {
     "display_name": "HiAnime",
     "value": "hiAnime",
-    "version": "1.2",
-    "icon": "https://hianime.tv/proxy/favicon.png",
+    "version": "1.3",
+    "icon": "https://hianimes.cz/assets/top-logo.png",
     "type": "india",
     "category": "anime",
     "disabled": false
@@ -281,8 +281,8 @@
   {
     "display_name": "TopMovies",
     "value": "topmovies",
-    "version": "1.1",
-    "icon": "https://moviesleech.eu/wp-content/uploads/2024/06/favicon.png",
+    "version": "1.2",
+    "icon": "https://animesuge.biz/storage/2026/01/cropped-favicon-180x180.png",
     "type": "india",
     "category": "movie/tvshow",
     "disabled": false
@@ -299,8 +299,8 @@
 {
     "display_name": "MovieTP",
     "value": "HDMovie2",
-    "version": "1.5",
-    "icon": "https://movietp.net/img/movietp.webp",
+    "version": "1.5.01",
+    "icon": "https://m.media-amazon.com/images/G/01/music/logo/1.0/smile_256x256.png",
     "type": "india",
     "category": "movie/tvshow",
     "disabled": false
@@ -335,8 +335,8 @@
   {
     "display_name": "cinevood",
     "value": "cinevood",
-    "version": "1.6",
-    "icon": "https://1cinevood.fyi/wp-content/uploads/2020/07/favicon2.png",
+    "version": "1.7",
+    "icon": "https://1cinevood.biz/wp-content/uploads/2020/07/favicon2.png",
     "type": "india",
     "category": "movie/tvshow",
     "disabled": false
@@ -354,7 +354,7 @@
     "display_name": "bolly4u",
     "value": "bolly4u",
     "version": "1.7",
-    "icon": "https://bolly4u.deals/templates/bolly4u/images/favicon-16x16.png",
+    "icon": "https://bolly4u.fyi/templates/bolly4u/images/favicon-32x32.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
@@ -362,8 +362,8 @@
   {
     "display_name": "streamflix",
     "value": "streamflix",
-    "version": "1.3",
-    "icon": "https://streamflix.web.app/assets/images/streamflix-1.svg",
+    "version": "1.4",
+    "icon": "https://play-lh.googleusercontent.com/7geBQBtW_yN70BU81Oi2SoZvYsj5VoYrI4FmUNdqWQlchtExJb7XE_1BQysGzgJ6mBU",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
@@ -452,8 +452,8 @@
   {
     "display_name": "cinevood1",
     "value": "cinevood1",
-    "version": "1.3",
-    "icon": "https://1cinevood.fyi/wp-content/uploads/2020/07/favicon2.png",
+    "version": "1.4",
+    "icon": "https://1cinevood.biz/wp-content/uploads/2020/07/favicon2.png",
     "type": "india",
     "category": "movie/tvshow",
     "disabled": false
@@ -497,8 +497,8 @@
   {
     "display_name": "7starHD",
     "value": "7starHD",
-    "version": "1.2",
-    "icon": "https://7starhd.info.in/wp-content/uploads/2025/10/7starhd_mm.png",
+    "version": "1.3",
+    "icon": "https://7starhd.place/wp-content/uploads/2025/08/7starhd-fav-150x150.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false 
@@ -515,8 +515,8 @@
    {
     "display_name": "HiAnime1",
     "value": "HiAnime1",
-    "version": "1.1",
-    "icon": "https://hianime.tv/proxy/favicon.png",
+    "version": "1.2",
+    "icon": "https://hianimes.cz/assets/top-logo.png",
     "type": "global",
     "category": "anime",
     "disabled": false 
@@ -524,8 +524,8 @@
   {
     "display_name": "DramaKey",
     "value": "DramaKey",
-    "version": "1.1",
-    "icon": "https://onlycdrama.com/apple-touch-icon.png",
+    "version": "1.2",
+    "icon": "https://vfiles.wetvinfo.com/vupload/20200713/favicon.ico",
     "type": "global",
     "category": "cdrama",
     "disabled": false 
@@ -542,8 +542,8 @@
   {
     "display_name": "AnimeSalt",
     "value": "AnimeSalt",
-    "version": "1.1",
-    "icon": "https://animesalt.cc/wp-content/uploads/cropped-AnimeSalticon-192x192.png",
+    "version": "1.2",
+    "icon": "https://animesalt.top/wp-content/uploads/cropped-AnimeSalticon-180x180.png",
     "type": "india",
     "category": "anime",
     "disabled": false 
@@ -551,8 +551,8 @@
   {
     "display_name": "AnimeWorld",
     "value": "AnimeWorld",
-    "version": "1.1",
-    "icon": "https://animeworld-india.me/public/content/cropped-AW_Smiley-192x192-2.png",
+    "version": "1.2",
+    "icon": "https://watchanimeworld.net/wp-content/uploads/cropped-AW_Smiley-180x180.png",
     "type": "india",
     "category": "anime",
     "disabled": false 
@@ -869,6 +869,7 @@
   
   
 ]
+
 
 
 
