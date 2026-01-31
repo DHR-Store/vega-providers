@@ -416,7 +416,7 @@
   {
     "display_name": "ogomovies",
     "value": "ogomovies",
-    "version": "1.1",
+    "version": "1.2",
     "icon": "https://ogomovies.cat/wp-content/uploads/cropped-fav-1-192x192.png",
     "type": "tamil",
     "category": "movie/tvshow",
@@ -835,6 +835,15 @@
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "Tamilblaster2",
+    "value": "tamilblaster2",
+    "version": "1.0",
+    "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjlqKUeCm1nWBKWGgm9Mg-Qz13Kqk8KWv3Bw&s",
+    "type": "tamil",
+    "category": "movie/tvshow",
+    "disabled": false
   }
 
 
@@ -842,6 +851,7 @@
   
   
 ]
+
 
 
 
