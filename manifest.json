@@ -308,7 +308,7 @@
   {
     "display_name": "HDMovie2",
     "value": "MovieTP",
-    "version": "1.4",
+    "version": "1.5",
     "icon": "",
     "type": "india",
     "category": "movie/tvshow",
@@ -860,6 +860,7 @@
   
   
 ]
+
 
 
 
