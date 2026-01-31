@@ -844,6 +844,15 @@
     "type": "tamil",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "micho",
+    "value": "micho",
+    "version": "1.0",
+    "icon": "https://www.thaireland.ie/wp-content/uploads/2025/12/cropped-fav-motchill-180x180.png",
+    "type": "vietnam",
+    "category": "movie/tvshow",
+    "disabled": false
   }
 
 
@@ -851,6 +860,7 @@
   
   
 ]
+
 
 
 
