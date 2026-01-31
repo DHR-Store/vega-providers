@@ -506,7 +506,7 @@
   {
     "display_name": "HubMovies",
     "value": "HubMovies",
-    "version": "1.02",
+    "version": "1.03",
     "icon": "https://angular-movies-a12d3.web.app/assets/icons/light-apple-touch-icon.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -860,6 +860,7 @@
   
   
 ]
+
 
 
 
