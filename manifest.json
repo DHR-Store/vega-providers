@@ -371,8 +371,8 @@
   {
     "display_name": "zeefliz",
     "value": "zeefliz",
-    "version": "1.1.08",
-    "icon": "https://zeefliz.lat/wp-content/uploads/2025/11/cropped-zeefliz-logo-270x270.jpg",
+    "version": "1.1.09",
+    "icon": "https://zeefliz.life/wp-content/uploads/2025/11/cropped-zeefliz-logo-180x180.jpg",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
@@ -860,6 +860,7 @@
   
   
 ]
+
 
 
 
