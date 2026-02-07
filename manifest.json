@@ -871,6 +871,15 @@
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "fibwatch",
+    "value": "fibwatch",
+    "version": "1.2",
+    "icon": "https://fibwatch.biz/themes/default/img/icon.png",
+    "type": "global",
+    "category": "movie/tvshow",
+    "disabled": false
   }
 
 
@@ -878,6 +887,7 @@
   
   
 ]
+
 
 
 
