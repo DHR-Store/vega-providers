@@ -695,7 +695,7 @@
   {
     "display_name": "Primevideo",
     "value": "primevideo",
-    "version": "1.1",
+    "version": "1.2",
     "icon": "https://m.media-amazon.com/images/G/01/digital/video/DVUI/favicons/mstile-70x70.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -704,7 +704,7 @@
   {
     "display_name": "Desny",
     "value": "desny",
-    "version": "1.0",
+    "version": "1.1",
     "icon": "https://static-mh.content.disney.io/matterhorn/assets/logos/disney_logo_dark-baa807690db7.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -869,6 +869,7 @@
   
   
 ]
+
 
 
 
