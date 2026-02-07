@@ -862,6 +862,15 @@
     "type": "global",
     "category": "drama",
     "disabled": false
+  },
+  {
+    "display_name": "dudefilms",
+    "value": "dudefilms",
+    "version": "1.0",
+    "icon": "https://dudefilms.esq/wp-content/uploads/2021/04/DF_LOGO.png",
+    "type": "global",
+    "category": "movie/tvshow",
+    "disabled": false
   }
 
 
@@ -869,6 +878,7 @@
   
   
 ]
+
 
 
 
