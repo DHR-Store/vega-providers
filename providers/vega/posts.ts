@@ -124,7 +124,10 @@ async function posts(
               ?.replace("Download", "")
               ?.match(/^(.*?)\s*\((\d{4})\)|^(.*?)\s*\((Season \d+)\)/)?.[0] ||
             $(element)?.find("a")?.attr("title")?.replace("Download", "") ||
-            $(element)?.find(".post-title").text()?.replace("Download", "") ||
+            $(element)
+              ?.find(".post-title,.poster-title")
+              .text()
+              ?.replace("Download", "") ||
             ""
           ).trim(),
 

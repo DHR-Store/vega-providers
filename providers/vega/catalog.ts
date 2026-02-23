@@ -5,11 +5,11 @@ export const catalog = [
   },
   {
     title: "Netflix",
-    filter: "web-series/netflix",
+    filter: "category/web-series/netflix",
   },
   {
     title: "Amazon Prime",
-    filter: "web-series/amazon-prime-video",
+    filter: "category/web-series/amazon-prime-video",
   },
   {
     title: "4K Movies",

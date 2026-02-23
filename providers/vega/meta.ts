@@ -41,7 +41,7 @@ export const getMeta = async ({
     });
     const $ = cheerio.load(response.data);
     const infoContainer = $(
-      ".entry-content, .post-inner, .post-content, .page-body"
+      ".entry-content, .post-inner, .post-content, .page-body",
     );
 
     // title
@@ -71,29 +71,19 @@ export const getMeta = async ({
 
     // type
     let type = "movie";
-    const categories = $(".post-categories a")
-      .map((i, el) => $(el).text().toLowerCase())
-      .get();
-    if (
-      categories.some(
-        (c) => c.includes("series") || c.includes("drama") || c.includes("anime")
-      ) ||
-      title.toLowerCase().includes("season")
-    ) {
+
+    const heading = infoContainer?.find("h3");
+    if (heading?.next("p")?.text()?.includes("Series Name")) {
       type = "series";
-    } else {
-      const heading = infoContainer?.find("h3");
-      if (heading?.next("p")?.text()?.includes("Series Name")) {
-        type = "series";
-      }
     }
+
     //   console.log(type);
 
     // synopsis
     let synopsis = "";
     const synopsisHeader = $("h3").filter(
       (i, el) =>
-        $(el).text().includes("SYNOPSIS/PLOT") || $(el).text().includes("Plot")
+        $(el).text().includes("SYNOPSIS/PLOT") || $(el).text().includes("Plot"),
     );
     if (synopsisHeader.length > 0) {
       synopsis = synopsisHeader.next("p").text().trim();
@@ -164,12 +154,7 @@ export const getMeta = async ({
           .text()
           .toLowerCase()
           .includes("download") ||
-        element
-          .next()
-          .find("a")
-          .text()
-          .toLowerCase()
-          .includes("download")
+        element.next().find("a").text().toLowerCase().includes("download")
           ? element?.next().find(".dwd-button")?.parent()?.attr("href") ||
             element?.next().find("a[href]")?.attr("href")
           : "";
@@ -178,7 +163,7 @@ export const getMeta = async ({
       const vcloudLinks = element
         ?.next()
         .find(
-          ".btn-outline[style='background:linear-gradient(135deg,#ed0b0b,#f2d152); color: white;'],.btn-outline[style='background:linear-gradient(135deg,#ed0b0b,#f2d152); color: #fdf8f2;'],.btn-outline[style='background:linear-gradient(135deg,#ed0b0b,#f2d152);color: white']"
+          ".btn-outline[style='background:linear-gradient(135deg,#ed0b0b,#f2d152); color: white;'],.btn-outline[style='background:linear-gradient(135deg,#ed0b0b,#f2d152); color: #fdf8f2;'],.btn-outline[style='background:linear-gradient(135deg,#ed0b0b,#f2d152);color: white']",
         )
         ?.parent()
         ?.attr("href");
@@ -186,17 +171,17 @@ export const getMeta = async ({
         (vcloudLinks
           ? vcloudLinks
           : element
-              ?.next()
-              .find(".dwd-button")
-              .text()
-              .toLowerCase()
-              .includes("episode")
-          ? element?.next().find(".dwd-button")?.parent()?.attr("href")
-          : "") ||
+                ?.next()
+                .find(".dwd-button")
+                .text()
+                .toLowerCase()
+                .includes("episode")
+            ? element?.next().find(".dwd-button")?.parent()?.attr("href")
+            : "") ||
         element
           ?.next()
           .find(
-            ".btn-outline[style='background:linear-gradient(135deg,#0ebac3,#09d261); color: white;']"
+            ".btn-outline[style='background:linear-gradient(135deg,#0ebac3,#09d261); color: white;']",
           )
           ?.parent()
           ?.attr("href");
