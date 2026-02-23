@@ -72,7 +72,7 @@ async function posts(
   signal: AbortSignal,
   headers: Record<string, string> = {},
   axios: ProviderContext["axios"],
-  cheerio: ProviderContext["cheerio"]
+  cheerio: ProviderContext["cheerio"],
 ): Promise<Post[]> {
   try {
     const urlRes = await fetch(url, {
@@ -84,8 +84,8 @@ async function posts(
     });
     const $ = cheerio.load(await urlRes.text());
     const posts: Post[] = [];
-    $(".blog-items,.post-list,#archive-container")
-      ?.children("article,.entry-list-item")
+    $(".blog-items,.post-list,#archive-container,.movies-grid")
+      ?.children("article,.entry-list-item,a")
       ?.each((index, element) => {
         const post = {
           title: (
@@ -99,7 +99,10 @@ async function posts(
             ""
           ).trim(),
 
-          link: $(element)?.find("a")?.attr("href") || "",
+          link:
+            $(element)?.find("a")?.attr("href") ||
+            $(element)?.attr("href") ||
+            "",
           image:
             $(element).find("a").find("img").attr("data-lazy-src") ||
             $(element).find("a").find("img").attr("data-src") ||

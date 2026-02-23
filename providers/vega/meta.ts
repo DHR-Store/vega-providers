@@ -40,34 +40,91 @@ export const getMeta = async ({
       },
     });
     const $ = cheerio.load(response.data);
-    const infoContainer = $(".entry-content,.post-inner");
-    const heading = infoContainer?.find("h3");
-    const imdbId =
-      //@ts-ignore
-      heading?.next("p")?.find("a")?.[0]?.attribs?.href?.match(/tt\d+/g)?.[0] ||
-      infoContainer.text().match(/tt\d+/g)?.[0] ||
-      "";
-    // console.log(imdbId)
+    const infoContainer = $(
+      ".entry-content, .post-inner, .post-content, .page-body"
+    );
 
-    const type = heading?.next("p")?.text()?.includes("Series Name")
-      ? "series"
-      : "movie";
-    //   console.log(type);
     // title
-    const titleRegex = /Name: (.+)/;
-    const title = heading?.next("p")?.text()?.match(titleRegex)?.[1] || "";
+    let title = $("h1.post-title").text().trim();
+    if (!title) {
+      const heading = infoContainer?.find("h3");
+      const titleRegex = /Name: (.+)/;
+      title = heading?.next("p")?.text()?.match(titleRegex)?.[1] || "";
+    }
     //   console.log(title);
 
+    // imdbId
+    let imdbId =
+      $('a[href*="imdb.com"]').attr("href")?.match(/tt\d+/)?.[0] || "";
+    if (!imdbId) {
+      const heading = infoContainer?.find("h3");
+      imdbId =
+        //@ts-ignore
+        heading
+          ?.next("p")
+          ?.find("a")?.[0]
+          ?.attribs?.href?.match(/tt\d+/g)?.[0] ||
+        infoContainer.text().match(/tt\d+/g)?.[0] ||
+        "";
+    }
+    // console.log(imdbId)
+
+    // type
+    let type = "movie";
+    const categories = $(".post-categories a")
+      .map((i, el) => $(el).text().toLowerCase())
+      .get();
+    if (
+      categories.some(
+        (c) => c.includes("series") || c.includes("drama") || c.includes("anime")
+      ) ||
+      title.toLowerCase().includes("season")
+    ) {
+      type = "series";
+    } else {
+      const heading = infoContainer?.find("h3");
+      if (heading?.next("p")?.text()?.includes("Series Name")) {
+        type = "series";
+      }
+    }
+    //   console.log(type);
+
     // synopsis
-    const synopsisNode = //@ts-ignore
-      infoContainer?.find("p")?.next("h3,h4")?.next("p")?.[0]?.children?.[0];
-    const synopsis =
-      synopsisNode && "data" in synopsisNode ? synopsisNode.data : "";
+    let synopsis = "";
+    const synopsisHeader = $("h3").filter(
+      (i, el) =>
+        $(el).text().includes("SYNOPSIS/PLOT") || $(el).text().includes("Plot")
+    );
+    if (synopsisHeader.length > 0) {
+      synopsis = synopsisHeader.next("p").text().trim();
+    }
+    if (!synopsis) {
+      const synopsisNode = //@ts-ignore
+        infoContainer?.find("p")?.next("h3,h4")?.next("p")?.[0]?.children?.[0];
+      synopsis =
+        synopsisNode && "data" in synopsisNode ? synopsisNode.data : "";
+    }
     //   console.log(synopsis);
 
     // image
     let image =
-      infoContainer?.find("img[data-lazy-src]")?.attr("data-lazy-src") || "";
+      infoContainer?.find("img[data-lazy-src]")?.attr("data-lazy-src") ||
+      infoContainer
+        ?.find("img")
+        ?.filter((i, el) => {
+          const src = $(el).attr("src");
+          return (
+            !!src &&
+            !src.includes("logo") &&
+            !src.includes("svg") &&
+            !src.includes("placeholder") &&
+            !src.includes("icon")
+          );
+        })
+        ?.first()
+        ?.attr("src") ||
+      "";
+
     if (image.startsWith("//")) {
       image = "https:" + image;
     }
@@ -75,7 +132,21 @@ export const getMeta = async ({
 
     console.log({ title, synopsis, image, imdbId, type });
     /// Links
-    const hr = infoContainer?.first()?.find("hr");
+    let hr = infoContainer?.first()?.find("hr");
+
+    // Try to find the HR before the download buttons if possible
+    const firstButton = $(".dwd-button").first();
+    if (firstButton.length > 0) {
+      const containerP = firstButton.closest("p");
+      let prev = containerP.prev();
+      while (prev.length && !prev.is("hr")) {
+        prev = prev.prev();
+      }
+      if (prev.is("hr")) {
+        hr = prev;
+      }
+    }
+
     const list = hr?.nextUntil("hr");
     const links: Link[] = [];
     list.each((index, element: any) => {
@@ -86,14 +157,22 @@ export const getMeta = async ({
       const quality = element?.text().match(/\d+p\b/)?.[0] || "";
       // console.log(title);
       // movieLinks
-      const movieLinks = element
-        ?.next()
-        .find(".dwd-button")
-        .text()
-        .toLowerCase()
-        .includes("download")
-        ? element?.next().find(".dwd-button")?.parent()?.attr("href")
-        : "";
+      const movieLinks =
+        element
+          ?.next()
+          .find(".dwd-button")
+          .text()
+          .toLowerCase()
+          .includes("download") ||
+        element
+          .next()
+          .find("a")
+          .text()
+          .toLowerCase()
+          .includes("download")
+          ? element?.next().find(".dwd-button")?.parent()?.attr("href") ||
+            element?.next().find("a[href]")?.attr("href")
+          : "";
 
       // episode links
       const vcloudLinks = element
