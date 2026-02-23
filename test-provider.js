@@ -3,10 +3,6 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const { z } = require("zod");
 const { getBaseUrl } = require("./dist/getBaseUrl.js");
-const { hubcloudExtracter } = require("./dist/hubcloudExtractor.js");
-const { gofileExtracter } = require("./dist/gofileExtracter.js");
-const { superVideoExtractor } = require("./dist/superVideoExtractor.js");
-const { gdFlixExtracter } = require("./dist/gdFlixExtractor.js");
 
 // Create readline interface
 const rl = readline.createInterface({
@@ -32,13 +28,7 @@ const providerContext = {
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
   },
-  extractors: {
-    hubcloudExtracter: hubcloudExtracter,
-    gofileExtracter: gofileExtracter,
-    superVideoExtractor: superVideoExtractor,
-    gdFlixExtracter: gdFlixExtracter,
-  },
-  Crypto: {},
+  Aes: {},
 };
 
 // Function parameter definitions based on README and types
@@ -159,7 +149,7 @@ async function getParameters(functionName, providerName) {
     const sampleValue = sampleValues[functionName]?.[paramName] || "";
 
     let value = await prompt(
-      `${promptText}${sampleValue ? `[sample: ${sampleValue}] ` : ""}`
+      `${promptText}${sampleValue ? `[sample: ${sampleValue}] ` : ""}`,
     );
 
     if (!value && sampleValue) {
@@ -207,7 +197,7 @@ async function testProvider(providerName, functionName) {
       }
     } catch (error) {
       console.log(
-        `❌ Provider '${providerName}' not found or built. Make sure to run 'npm run build' first.`
+        `❌ Provider '${providerName}' not found or built. Make sure to run 'npm run build' first.`,
       );
       console.log(`Error: ${error.message}`);
       return;
@@ -217,7 +207,7 @@ async function testProvider(providerName, functionName) {
     if (!module[functionName]) {
       console.log(`❌ Function '${functionName}' not found in ${providerName}`);
       const availableFunctions = Object.keys(module).filter(
-        (key) => typeof module[key] === "function"
+        (key) => typeof module[key] === "function",
       );
       console.log(`Available functions: ${availableFunctions.join(", ")}`);
       return;
@@ -249,7 +239,7 @@ async function testProvider(providerName, functionName) {
 
     if (!validationResult.isValid) {
       console.log(
-        "\n💡 Tip: Check your provider implementation to ensure it returns the correct format."
+        "\n💡 Tip: Check your provider implementation to ensure it returns the correct format.",
       );
     }
   } catch (error) {
@@ -281,7 +271,7 @@ const StreamSchema = z.object({
         language: z.string(),
         type: z.string(),
         uri: z.string().url(),
-      })
+      }),
     )
     .optional(),
   headers: z.any().optional(),
@@ -297,7 +287,7 @@ const LinkSchema = z.object({
         title: z.string().min(1, "Direct link title cannot be empty"),
         link: z.string().url("Direct link must be a valid URL"),
         type: z.enum(["movie", "series"]).optional(),
-      })
+      }),
     )
     .optional(),
 });
@@ -421,7 +411,7 @@ async function main() {
     console.log("\nFlags:");
     console.log("  --rebuild        Rebuild TypeScript files before testing");
     console.log(
-      "\nNote: Run with --rebuild flag if you've made changes to TypeScript files!"
+      "\nNote: Run with --rebuild flag if you've made changes to TypeScript files!",
     );
     rl.close();
     return;
@@ -430,16 +420,15 @@ async function main() {
   if (args.length < 2) {
     console.log("❌ Please provide both provider name and function name");
     console.log(
-      "Usage: node test-provider.js <provider> <function> [--rebuild]"
+      "Usage: node test-provider.js <provider> <function> [--rebuild]",
     );
     rl.close();
     return;
   }
 
   const providerName = args[0];
-  const functionName = args[1];
 
-  // Validate function name
+  // Validate function name (case-insensitive)
   const validFunctions = [
     "getPosts",
     "getSearchPosts",
@@ -447,8 +436,11 @@ async function main() {
     "getEpisodes",
     "getStream",
   ];
+  const functionName =
+    validFunctions.find((f) => f.toLowerCase() === args[1].toLowerCase()) ??
+    args[1];
   if (!validFunctions.includes(functionName)) {
-    console.log(`❌ Invalid function name: ${functionName}`);
+    console.log(`❌ Invalid function name: ${args[1]}`);
     console.log(`Valid functions: ${validFunctions.join(", ")}`);
     rl.close();
     return;
