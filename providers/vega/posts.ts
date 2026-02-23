@@ -60,10 +60,39 @@ export const getSearchPosts = async ({
   const baseUrl = await getBaseUrl("Vega");
 
   console.log("vegaGetPosts baseUrl:", providerValue, baseUrl);
-  const url = `${baseUrl}/page/${page}/?s=${searchQuery}`;
+  const url = `${baseUrl}/search.php?q=${searchQuery}&page=${page}`;
   console.log("vegaGetPosts url:", url);
 
-  return posts(baseUrl, url, signal, headers, axios, cheerio);
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        ...headers,
+        Referer: baseUrl,
+      },
+      signal,
+    });
+
+    const data = response.data;
+    const posts: Post[] = [];
+
+    if (data?.hits) {
+      data.hits.forEach((hit: any) => {
+        const doc = hit.document;
+        const post = {
+          title: doc.post_title.replace("Download", "").trim(),
+          link: doc.permalink.startsWith("http")
+            ? doc.permalink
+            : `${baseUrl}${doc.permalink}`,
+          image: doc.post_thumbnail,
+        };
+        posts.push(post);
+      });
+    }
+    return posts;
+  } catch (error) {
+    console.error("vegaGetSearchPosts error:", error);
+    return [];
+  }
 };
 
 async function posts(
@@ -90,7 +119,7 @@ async function posts(
         const post = {
           title: (
             $(element)
-              ?.find(".entry-title")
+              ?.find(".entry-title,.poster-title")
               ?.text()
               ?.replace("Download", "")
               ?.match(/^(.*?)\s*\((\d{4})\)|^(.*?)\s*\((Season \d+)\)/)?.[0] ||
@@ -107,11 +136,13 @@ async function posts(
             $(element).find("a").find("img").attr("data-lazy-src") ||
             $(element).find("a").find("img").attr("data-src") ||
             $(element).find("a").find("img").attr("src") ||
+            $(element).find("img").attr("src") ||
             "",
         };
         if (post.image.startsWith("//")) {
           post.image = "https:" + post.image;
         }
+        console.log("vegaGetPosts post:", post);
         posts.push(post);
       });
 
