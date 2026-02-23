@@ -150,6 +150,44 @@ async function buildProvider(providerName) {
   return { providerName, modules: results };
 }
 
+async function buildUtilityFiles() {
+  const utilityFiles = ["getBaseUrl", "headers", "providerContext"];
+
+  for (const utilityName of utilityFiles) {
+    const utilityPath = path.join(providersDir, `${utilityName}.ts`);
+
+    if (!fs.existsSync(utilityPath)) {
+      continue;
+    }
+
+    try {
+      const result = await esbuild.build({
+        entryPoints: [utilityPath],
+        bundle: true,
+        platform: "node",
+        format: "cjs",
+        target: "es2015",
+        write: false,
+        external: [],
+        minify: false,
+        keepNames: true,
+        treeShaking: true,
+        outfile: `${utilityName}.js`,
+      });
+
+      let code = result.outputFiles[0].text;
+      code = code.replace(/require\(['"]node:.*?['"]\)/g, "{}");
+
+      const outputPath = path.join(__dirname, "dist", `${utilityName}.js`);
+      fs.writeFileSync(outputPath, code);
+
+      console.log(`✓ ${utilityName}.js (${(code.length / 1024).toFixed(1)}kb)`);
+    } catch (error) {
+      console.error(`✗ Error building ${utilityName}:`, error.message);
+    }
+  }
+}
+
 async function buildAll() {
   const startTime = Date.now();
   console.log(
@@ -162,6 +200,9 @@ async function buildAll() {
     fs.rmSync(distDir, { recursive: true, force: true });
   }
   fs.mkdirSync(distDir, { recursive: true });
+
+  // Build utility files first
+  await buildUtilityFiles();
 
   // Build all providers
   const results = await Promise.all(providerDirs.map(buildProvider));
