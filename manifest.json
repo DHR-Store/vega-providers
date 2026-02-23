@@ -2,7 +2,7 @@
   {
     "display_name": "VegaMovies",
     "value": "vega",
-    "version": "1.9.06",
+    "version": "1.9.07",
     "icon": "https://vegamovies.careers/templates/vegamovies/images/v-l.png",
     "type": "global",
     "category": "movie/tvshow",
@@ -915,6 +915,7 @@
   
   
 ]
+
 
 
 
