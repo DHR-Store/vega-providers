@@ -113,9 +113,9 @@ async function fetchPosts({
 
       // Image
       let img =
+        card.find("img").attr("data-src") ||
         card.find("img").attr("bv-data-src") ||
         card.find("img").attr("src") ||
-        card.find("img").attr("data-src") ||
         card.find("img").attr("data-original") ||
         "";
       const image = img ? resolveUrl(img) : "";
@@ -128,7 +128,7 @@ async function fetchPosts({
   } catch (err) {
     console.error(
       "fetchPosts error:",
-      err instanceof Error ? err.message : String(err)
+      err instanceof Error ? err.message : String(err),
     );
     return [];
   }
