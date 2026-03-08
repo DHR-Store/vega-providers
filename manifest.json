@@ -713,7 +713,7 @@
   {
     "display_name": "Hotstar",
     "value": "hotstar",
-    "version": "1.2",
+    "version": "1.2.01",
     "icon": "https://secure-media.hotstar.com/web-assets/prod/jhs_favicon.ico",
     "type": "global",
     "category": "movie/tvshow",
@@ -915,6 +915,7 @@
   
   
 ]
+
 
 
 
