@@ -925,6 +925,15 @@
     "type": "global",
     "category": "tvserial/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "Piratexplay",
+    "value": "piratexplay",
+    "version": "0.1",
+    "icon": "https://piratexplay.cc/public/img/favicon/apple-icon-144x144.png",
+    "type": "global",
+    "category": "anime",
+    "disabled": false
   }
   
 
