@@ -916,6 +916,15 @@
     "type": "global",
     "category": "tvserial/tvshow",
     "disabled": false
+  },
+  {
+    "display_name": "Desiseriel",
+    "value": "desiserial",
+    "version": "0.1",
+    "icon": "https://www.desi-serials.to/wp-content/uploads/2019/09/fav.png",
+    "type": "global",
+    "category": "tvserial/tvshow",
+    "disabled": false
   }
   
 
