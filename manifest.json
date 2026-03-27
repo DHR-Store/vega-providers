@@ -3,7 +3,7 @@
     "display_name": "VegaMovies",
     "value": "vega",
     "version": "1.9.08",
-    "icon": "https://vegamovies.careers/templates/vegamovies/images/v-l.png",
+    "icon": "https://vegamovies.actor/templates/vegamovies/images/v-l-200x197.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
@@ -120,7 +120,7 @@
     "display_name": "Ringz",
     "value": "ringz",
     "version": "1.0",
-    "icon": "https://ringzapk.com/favicon.jpg",
+    "icon": "https://rzflix.com/favicon.jpg",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
@@ -273,7 +273,7 @@
     "display_name": "RogMovies",
     "value": "luxMovies",
     "version": "1.6",
-    "icon": "https://rogmovies.pics/wp-content/uploads/2024/09/favicon.png",
+    "icon": "https://rogmovies.vip/wp-content/uploads/2024/09/favicon.png",
     "type": "india",
     "category": "movie/tvshow",
     "disabled": false
@@ -417,7 +417,7 @@
     "display_name": "ogomovies",
     "value": "ogomovies",
     "version": "1.2",
-    "icon": "https://ogomovies.cat/wp-content/uploads/cropped-fav-1-192x192.png",
+    "icon": "https://ogomovies.dev/wp-content/themes/assets/images/fav.png",
     "type": "tamil",
     "category": "movie/tvshow",
     "disabled": false
@@ -498,7 +498,7 @@
     "display_name": "7starHD",
     "value": "7starHD",
     "version": "1.3",
-    "icon": "https://7starhd.place/wp-content/uploads/2025/08/7starhd-fav-150x150.png",
+    "icon": "https://7starmv.skin/wp-content/uploads/2024/02/icon-downloads-13.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false 
