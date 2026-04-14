@@ -1,215 +1,352 @@
-#!/usr/bin/env node
-
-const { spawn } = require("child_process");
-const path = require("path");
+const cheerio = require("cheerio");
+const axios = require("axios");
+const readline = require("readline");
 const fs = require("fs");
+const path = require("path");
+const { getBaseUrl } = require("./dist/getBaseUrl.js");
 
-// Colors for console output
-const colors = {
-  reset: "\x1b[0m",
-  bright: "\x1b[1m",
-  green: "\x1b[32m",
-  red: "\x1b[31m",
-  yellow: "\x1b[33m",
-  blue: "\x1b[34m",
-  magenta: "\x1b[35m",
-  cyan: "\x1b[36m",
-};
+const providerContext = { axios, cheerio, getBaseUrl };
 
-const log = {
-  info: (msg) => console.log(`${colors.blue}ℹ${colors.reset} ${msg}`),
-  success: (msg) => console.log(`${colors.green}✅${colors.reset} ${msg}`),
-  error: (msg) => console.log(`${colors.red}❌${colors.reset} ${msg}`),
-  warning: (msg) => console.log(`${colors.yellow}⚠️${colors.reset} ${msg}`),
-  server: (msg) => console.log(`${colors.cyan}🌐${colors.reset} ${msg}`),
-  watch: (msg) => console.log(`${colors.magenta}👀${colors.reset} ${msg}`),
-};
+// Create readline interface
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-class AutoDev {
-  constructor() {
-    this.processes = new Map();
-    this.isShuttingDown = false;
-  }
+// Helper function to prompt user input
+function prompt(question) {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      resolve(answer.trim());
+    });
+  });
+}
 
-  async checkDependencies() {
-    log.info("Checking dependencies...");
+// Get all available providers and their functions
+function getAvailableProviders() {
+  const distPath = path.join(__dirname, "dist");
+  const providers = {};
 
-    const requiredPackages = ["nodemon", "concurrently", "express", "cors"];
-    const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
-
-    const missing = requiredPackages.filter(
-      (pkg) =>
-        !packageJson.dependencies?.[pkg] && !packageJson.devDependencies?.[pkg]
+  if (!fs.existsSync(distPath)) {
+    console.log(
+      "❌ Build directory not found. Please run 'npm run build' first."
     );
-
-    if (missing.length > 0) {
-      log.error(`Missing packages: ${missing.join(", ")}`);
-      log.info("Installing missing packages...");
-      await this.runCommand("npm", ["install", ...missing, "--save-dev"]);
-    }
-
-    log.success("All dependencies are installed");
+    return providers;
   }
 
-  async runCommand(command, args, options = {}) {
-    return new Promise((resolve, reject) => {
-      const child = spawn(command, args, {
-        stdio: "inherit",
-        shell: true,
-        ...options,
-      });
+  const items = fs.readdirSync(distPath, { withFileTypes: true });
 
-      child.on("close", (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`Command failed with code ${code}`));
+  items.forEach((item) => {
+    if (item.isDirectory()) {
+      const providerPath = path.join(distPath, item.name);
+      const files = fs.readdirSync(providerPath);
+
+      providers[item.name] = {};
+
+      files.forEach((file) => {
+        if (file.endsWith(".js")) {
+          const functionName = file.replace(".js", "");
+          try {
+            const modulePath = path.join(providerPath, file);
+            const module = require(modulePath);
+
+            // Get all exported functions
+            const functions = Object.keys(module).filter(
+              (key) => typeof module[key] === "function"
+            );
+
+            if (functions.length > 0) {
+              providers[item.name][functionName] = {
+                path: modulePath,
+                functions: functions,
+                module: module,
+              };
+            }
+          } catch (error) {
+            // Skip files that can't be loaded
+          }
         }
       });
+    }
+  });
 
-      child.on("error", reject);
-    });
-  }
-  async initialBuild() {
-    log.info("Running initial build...");
-    try {
-      await this.runCommand("node", ["build-simple.js"]);
-      log.success("Initial build completed");
-    } catch (error) {
-      log.error("Initial build failed:", error.message);
-      throw error;
+  // Also check for standalone files
+  items.forEach((item) => {
+    if (item.isFile() && item.name.endsWith(".js")) {
+      const functionName = item.name.replace(".js", "");
+      try {
+        const modulePath = path.join(distPath, item.name);
+        const module = require(modulePath);
+
+        const functions = Object.keys(module).filter(
+          (key) => typeof module[key] === "function"
+        );
+
+        if (functions.length > 0) {
+          if (!providers["standalone"]) providers["standalone"] = {};
+          providers["standalone"][functionName] = {
+            path: modulePath,
+            functions: functions,
+            module: module,
+          };
+        }
+      } catch (error) {
+        // Skip files that can't be loaded
+      }
+    }
+  });
+
+  return providers;
+}
+
+// Display available providers
+function displayProviders(providers) {
+  console.log("\n🎯 Available Providers:");
+  console.log("========================");
+
+  const providerNames = Object.keys(providers);
+  providerNames.forEach((provider, index) => {
+    const functionCount = Object.keys(providers[provider]).length;
+    console.log(`${index + 1}. ${provider} (${functionCount} modules)`);
+  });
+
+  return providerNames;
+}
+
+// Display functions for a provider
+function displayFunctions(provider, providerData) {
+  console.log(`\n📋 Available modules in ${provider}:`);
+  console.log("======================================");
+
+  const modules = Object.keys(providerData);
+  modules.forEach((module, index) => {
+    const functions = providerData[module].functions;
+    console.log(`${index + 1}. ${module} - Functions: ${functions.join(", ")}`);
+  });
+
+  return modules;
+}
+
+// Get sample data for different function types
+function getSampleData(functionName, moduleName) {
+  const samples = {
+    // Meta functions
+    getMeta: {
+      link: "https://example.com/movie-title",
+      providerContext,
+    },
+
+    // Posts/Search functions
+    getPosts: {
+      url: "https://example.com/search?q=movie",
+      providerContext,
+    },
+    getSearchPosts: {
+      searchQuery: "avengers",
+      page: 1,
+      providerContext,
+      providerValue: moduleName,
+    },
+
+    // Episodes functions
+    getEpisodes: {
+      url: "episode-id-or-url",
+      providerContext,
+    },
+
+    // Stream functions
+    getStream: {
+      url: "https://example.com/stream-url",
+      providerContext,
+    },
+
+    // Catalog functions
+    getCatalog: {
+      type: "movie",
+      genre: "action",
+      providerContext,
+    },
+  };
+
+  return samples[functionName] || {};
+}
+
+// Execute the selected function
+async function executeFunction(module, functionName, params) {
+  try {
+    console.log(`\n⚡ Executing ${functionName}...`);
+    console.log("📝 Parameters:", JSON.stringify(params, null, 2));
+    console.log("⏳ Please wait...\n");
+
+    const startTime = Date.now();
+    const result = await module[functionName](params);
+    const endTime = Date.now();
+
+    console.log("✅ Success!");
+    console.log(`⏱️  Execution time: ${endTime - startTime}ms`);
+    console.log("📊 Result:");
+    console.log("=".repeat(50));
+    console.log(JSON.stringify(result, null, 2));
+    console.log("=".repeat(50));
+  } catch (error) {
+    console.log("❌ Error occurred:");
+    console.log("🔍 Error details:", error.message);
+    if (error.stack) {
+      console.log("📚 Stack trace:", error.stack);
     }
   }
+}
 
-  startWatcher() {
-    log.watch("Starting file watcher...");
+// Allow user to customize parameters
+async function customizeParameters(sampleParams, functionName) {
+  console.log(`\n🔧 Customize parameters for ${functionName}:`);
+  console.log("Current parameters:", JSON.stringify(sampleParams, null, 2));
 
-    const watcher = spawn("npx", ["nodemon"], {
-      stdio: ["inherit", "pipe", "pipe"],
-      shell: true,
-      env: { ...process.env, NODE_ENV: "development" },
-    });
+  const useCustom = await prompt(
+    "\nDo you want to customize parameters? (y/n): "
+  );
 
-    watcher.stdout.on("data", (data) => {
-      const output = data.toString().trim();
-      if (output) {
-        console.log(`${colors.magenta}[WATCH]${colors.reset} ${output}`);
+  if (useCustom.toLowerCase() === "y" || useCustom.toLowerCase() === "yes") {
+    const customParams = { ...sampleParams };
+
+    for (const [key, value] of Object.entries(sampleParams)) {
+      if (key !== "providerContext") {
+        const newValue = await prompt(
+          `${key} (current: ${JSON.stringify(value)}): `
+        );
+        if (newValue) {
+          // Try to parse as JSON, otherwise use as string
+          try {
+            customParams[key] = JSON.parse(newValue);
+          } catch {
+            customParams[key] = newValue;
+          }
+        }
       }
-    });
+    }
 
-    watcher.stderr.on("data", (data) => {
-      const output = data.toString().trim();
-      if (output) {
-        console.log(`${colors.yellow}[WATCH]${colors.reset} ${output}`);
-      }
-    });
-
-    watcher.on("close", (code) => {
-      if (!this.isShuttingDown) {
-        log.error(`Watcher exited with code ${code}`);
-      }
-    });
-
-    this.processes.set("watcher", watcher);
-    return watcher;
+    return customParams;
   }
 
-  startDevServer() {
-    log.server("Starting development server...");
+  return sampleParams;
+}
 
-    const server = spawn("node", ["dev-server.js"], {
-      stdio: ["inherit", "pipe", "pipe"],
-      shell: true,
-    });
+// Main interactive loop
+async function main() {
+  console.log("🚀 Vega Providers Interactive Tester");
+  console.log("=====================================");
 
-    server.stdout.on("data", (data) => {
-      const output = data.toString().trim();
-      if (output) {
-        console.log(`${colors.cyan}[SERVER]${colors.reset} ${output}`);
-      }
-    });
+  const providers = getAvailableProviders();
 
-    server.stderr.on("data", (data) => {
-      const output = data.toString().trim();
-      if (output) {
-        console.log(`${colors.red}[SERVER]${colors.reset} ${output}`);
-      }
-    });
-
-    server.on("close", (code) => {
-      if (!this.isShuttingDown) {
-        log.error(`Server exited with code ${code}`);
-      }
-    });
-
-    this.processes.set("server", server);
-    return server;
+  if (Object.keys(providers).length === 0) {
+    console.log(
+      "❌ No providers found. Make sure to build the project first with 'npm run build'"
+    );
+    rl.close();
+    return;
   }
 
-  setupSignalHandlers() {
-    const cleanup = () => {
-      if (this.isShuttingDown) return;
-      this.isShuttingDown = true;
-
-      console.log("\n");
-      log.info("Shutting down auto-dev environment...");
-
-      for (const [name, process] of this.processes) {
-        log.info(`Stopping ${name}...`);
-        process.kill("SIGTERM");
-      }
-
-      setTimeout(() => {
-        log.success("Auto-dev environment stopped");
-        process.exit(0);
-      }, 1000);
-    };
-
-    process.on("SIGINT", cleanup);
-    process.on("SIGTERM", cleanup);
-  }
-
-  async start() {
-    console.log(`
-${colors.bright}🚀 Vega Providers Auto-Development Environment${colors.reset}
-
-
-${colors.yellow}Press Ctrl+C to stop${colors.reset}
-`);
-
+  while (true) {
     try {
-      // Setup signal handlers
-      this.setupSignalHandlers();
-
-      // Check dependencies
-      await this.checkDependencies();
-
-      // Initial build
-      await this.initialBuild();
-
-      // Start watcher and server
-      this.startWatcher();
-
-      // Wait a bit before starting server
-      setTimeout(() => {
-        this.startDevServer();
-      }, 2000);
-
-      log.success("Auto-development environment is running!");
-      log.info(
-        "Make changes to your providers and watch them rebuild automatically"
+      // Select provider
+      const providerNames = displayProviders(providers);
+      const providerChoice = await prompt(
+        `\nSelect a provider (1-${providerNames.length}) or 'q' to quit: `
       );
+
+      if (providerChoice.toLowerCase() === "q") {
+        console.log("👋 Goodbye!");
+        break;
+      }
+
+      const providerIndex = parseInt(providerChoice) - 1;
+      if (providerIndex < 0 || providerIndex >= providerNames.length) {
+        console.log("❌ Invalid choice. Please try again.");
+        continue;
+      }
+
+      const selectedProvider = providerNames[providerIndex];
+      const providerData = providers[selectedProvider];
+
+      // Select module
+      const modules = displayFunctions(selectedProvider, providerData);
+      const moduleChoice = await prompt(
+        `\nSelect a module (1-${modules.length}): `
+      );
+
+      const moduleIndex = parseInt(moduleChoice) - 1;
+      if (moduleIndex < 0 || moduleIndex >= modules.length) {
+        console.log("❌ Invalid choice. Please try again.");
+        continue;
+      }
+
+      const selectedModule = modules[moduleIndex];
+      const moduleData = providerData[selectedModule];
+
+      // Select function
+      console.log(`\n🔧 Available functions in ${selectedModule}:`);
+      moduleData.functions.forEach((func, index) => {
+        console.log(`${index + 1}. ${func}`);
+      });
+
+      const functionChoice = await prompt(
+        `\nSelect a function (1-${moduleData.functions.length}): `
+      );
+
+      const functionIndex = parseInt(functionChoice) - 1;
+      if (functionIndex < 0 || functionIndex >= moduleData.functions.length) {
+        console.log("❌ Invalid choice. Please try again.");
+        continue;
+      }
+
+      const selectedFunction = moduleData.functions[functionIndex];
+
+      // Get and customize parameters
+      const sampleParams = getSampleData(selectedFunction, selectedProvider);
+      const finalParams = await customizeParameters(
+        sampleParams,
+        selectedFunction
+      );
+
+      // Execute function
+      await executeFunction(moduleData.module, selectedFunction, finalParams);
+
+      // Ask if user wants to continue
+      const continueChoice = await prompt(
+        "\n🔄 Test another function? (y/n): "
+      );
+      if (
+        continueChoice.toLowerCase() !== "y" &&
+        continueChoice.toLowerCase() !== "yes"
+      ) {
+        console.log("👋 Goodbye!");
+        break;
+      }
     } catch (error) {
-      log.error("Failed to start auto-dev environment:", error.message);
-      process.exit(1);
+      console.log("❌ An unexpected error occurred:", error.message);
+      const retryChoice = await prompt("🔄 Try again? (y/n): ");
+      if (
+        retryChoice.toLowerCase() !== "y" &&
+        retryChoice.toLowerCase() !== "yes"
+      ) {
+        break;
+      }
     }
   }
+
+  rl.close();
 }
 
-// CLI interface
-if (require.main === module) {
-  const autoDev = new AutoDev();
-  autoDev.start();
-}
+// Handle process termination
+process.on("SIGINT", () => {
+  console.log("\n👋 Goodbye!");
+  rl.close();
+  process.exit(0);
+});
 
-module.exports = AutoDev;
+// Start the interactive tester
+main().catch((error) => {
+  console.error("❌ Fatal error:", error);
+  rl.close();
+  process.exit(1);
+});
