@@ -2,8 +2,8 @@
   {
     "display_name": "VegaMovies",
     "value": "vega",
-    "version": "1.9.08",
-    "icon": "https://vegamovies.actor/templates/vegamovies/images/v-l-200x197.png",
+    "version": "1.9.09",
+    "icon": "https://vegamovies.vodka/wp-content/uploads/2026/04/cropped-v-pink-180x180.png",
     "type": "global",
     "category": "movie/tvshow",
     "disabled": false
